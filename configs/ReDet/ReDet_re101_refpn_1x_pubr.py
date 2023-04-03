@@ -1,10 +1,10 @@
 # model settings
 model = dict(
     type='ReDet',
-    pretrained='pretrained/ReDet_re50_refpn_1x_dota15-7f2d6dda.pth',
+    pretrained='pretrained/re_resnet101_v2_c8_batch256-f248cc41.pth',
     backbone=dict(
         type='ReResNet',
-        depth=50,
+        depth=101,
         num_stages=4,
         out_indices=(0, 1, 2, 3),
         frozen_stages=1,
@@ -139,8 +139,8 @@ data_root = 'data/pubr/v1/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 data = dict(
-    imgs_per_gpu=2,
-    workers_per_gpu=2,
+    imgs_per_gpu=4,
+    workers_per_gpu=4,
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_Train.json',
@@ -175,7 +175,7 @@ data = dict(
         with_label=False,
         test_mode=True))
 # optimizer
-optimizer = dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.005, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # learning policy
 lr_config = dict(
@@ -187,7 +187,7 @@ lr_config = dict(
 checkpoint_config = dict(interval=12)
 # yapf:disable
 log_config = dict(
-    interval=50,
+    interval=1,
     hooks=[
         dict(type='TextLoggerHook'),
         # dict(type='TensorboardLoggerHook')
@@ -201,15 +201,3 @@ work_dir = 'work_dirs/ReDet_re50_refpn_1x_pubr'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
-
-# OBB
-# map: 0.6685876697941695
-# classaps:  [79.20329861 82.81152908 51.91645747 71.40502646 52.38051243 75.72773116
-#  80.92049489 90.83033489 75.8138614  68.6393801  49.28574084 72.02986006
-#  73.36013455 70.55389787 63.33062659 11.53138528]
-
-# HBB
-# map: 0.6765991141966352
-# classaps:  [79.51441367 82.63204656 53.80948876 69.82043539 52.75941583 75.6409354
-#  87.81692604 90.83033489 75.8138614  68.77949859 49.10840864 71.6478249
-#  75.56893056 75.17287145 58.28604779 15.35714286]

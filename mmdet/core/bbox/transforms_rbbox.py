@@ -1,9 +1,10 @@
+import copy
+import math
+
+import cv2
 import mmcv
 import numpy as np
 import torch
-import math
-import cv2
-import copy
 
 
 # TODO: check the angle and module operation
@@ -559,18 +560,20 @@ def mask2poly_single(binary_mask):
     :param binary_mask:
     :return:
     """
-    # try:
-    contours, hierarchy = cv2.findContours(binary_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    # contour_lens = np.array(list(map(len, contours)))
-    # max_id = contour_lens.argmax()
-    # max_contour = contours[max_id]
-    max_contour = max(contours, key=len)
-    rect = cv2.minAreaRect(max_contour)
-    poly = cv2.boxPoints(rect)
+    try:
+        contours, hierarchy = cv2.findContours(binary_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        # contour_lens = np.array(list(map(len, contours)))
+        # max_id = contour_lens.argmax()
+        # max_contour = contours[max_id]
+        max_contour = max(contours, key=len)
+        rect = cv2.minAreaRect(max_contour)
+        poly = cv2.boxPoints(rect)
         # poly = TuplePoly2Poly(poly)
-    # except:
-        # import pdb
-        # pdb.set_trace()
+    except Exception as e:
+        print(type(e))
+        print(e)
+        import pdb
+        pdb.set_trace()
     return poly
 
 def mask2poly(binary_mask_list):

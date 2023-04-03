@@ -1,5 +1,7 @@
-from .coco import CocoDataset
 import numpy as np
+
+from .coco import CocoDataset
+
 
 class DOTA1_5Dataset(CocoDataset):
 
@@ -58,6 +60,9 @@ class DOTA1_5Dataset_v2(CocoDataset):
                 gt_bboxes.append(bbox)
                 gt_labels.append(self.cat2label[ann['category_id']])
             if with_mask:
+                from PIL import Image
+                Image.fromarray(self.coco.annToMask(ann)).save('/tmp/debug.png')
+                breakpoint()
                 gt_masks.append(self.coco.annToMask(ann))
                 mask_polys = [
                     p for p in ann['segmentation'] if len(p) >= 6
@@ -65,6 +70,7 @@ class DOTA1_5Dataset_v2(CocoDataset):
                 poly_lens = [len(p) for p in mask_polys]
                 gt_mask_polys.append(mask_polys)
                 gt_poly_lens.extend(poly_lens)
+                breakpoint()
         if gt_bboxes:
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
             gt_labels = np.array(gt_labels, dtype=np.int64)

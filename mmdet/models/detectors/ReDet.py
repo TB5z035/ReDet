@@ -1,22 +1,24 @@
 from __future__ import division
 
 import copy
+
 import torch
 import torch.nn as nn
-from mmdet.core import RotBox2Polys, polygonToRotRectangle_batch
-from mmdet.core import (bbox_mapping, merge_aug_proposals, merge_aug_bboxes,
-                        merge_aug_masks, multiclass_nms, merge_rotate_aug_proposals,
-                        merge_rotate_aug_bboxes, multiclass_nms_rbbox)
-from mmdet.core import (build_assigner, bbox2roi, dbbox2roi, bbox2result, build_sampler,
-                        dbbox2result, merge_aug_masks, roi2droi, mask2poly,
-                        get_best_begin_point, polygonToRotRectangle_batch,
-                        gt_mask_bp_obbs_list, choose_best_match_batch,
-                        choose_best_Rroi_batch, dbbox_rotate_mapping, bbox_rotate_mapping)
 
-from .base_new import BaseDetectorNew
-from .test_mixins import RPNTestMixin
+from mmdet.core import (RotBox2Polys, bbox2result, bbox2roi, bbox_mapping,
+                        bbox_rotate_mapping, build_assigner, build_sampler,
+                        choose_best_match_batch, choose_best_Rroi_batch,
+                        dbbox2result, dbbox2roi, dbbox_rotate_mapping,
+                        get_best_begin_point, gt_mask_bp_obbs_list, mask2poly,
+                        merge_aug_bboxes, merge_aug_masks, merge_aug_proposals,
+                        merge_rotate_aug_bboxes, merge_rotate_aug_proposals,
+                        multiclass_nms, multiclass_nms_rbbox,
+                        polygonToRotRectangle_batch, roi2droi)
+
 from .. import builder
 from ..registry import DETECTORS
+from .base_new import BaseDetectorNew
+from .test_mixins import RPNTestMixin
 
 
 @DETECTORS.register_module

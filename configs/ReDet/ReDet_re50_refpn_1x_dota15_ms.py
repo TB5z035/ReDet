@@ -1,7 +1,7 @@
 # model settings
 model = dict(
     type='ReDet',
-    pretrained='work_dirs/ReResNet_pretrain/re_resnet50_c8_batch256-12933bc2.pth',
+    pretrained='pretrained/ReDet_re50_refpn_1x_dota15_ms-9d1a523c.pth',
     backbone=dict(
         type='ReResNet',
         depth=50,
@@ -136,7 +136,7 @@ test_cfg = dict(
 )
 # dataset settings
 dataset_type = 'DOTA1_5Dataset_v2'
-data_root = '/workfs/jmhan/dota15_1024_ms/'
+data_root = 'data/dota15_1024/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 data = dict(
